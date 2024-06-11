@@ -12,8 +12,8 @@ export const getAllProjects = async (req, res) => {
 
 // Create a new project
 export const createProject = async (req, res) => {
-  const { srNo, title, tag, description, images } = req.body;
-  const project = new Project({ srNo, title, tag, description, images });
+  const { title, tag, description, images } = req.body;
+  const project = new Project({ title, tag, description, images });
 
   try {
     const savedProject = await project.save();

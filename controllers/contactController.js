@@ -12,7 +12,8 @@ export const getAllContacts = async (req, res) => {
 
 // Create a new contact
 export const createContact = async (req, res) => {
-  const contact = new Contact(req.body);
+  const { name, email, phone, message } = req.body;
+  const contact = new Contact({ name, email, phone, message });
   try {
     const savedContact = await contact.save();
     res.status(201).json(savedContact);
