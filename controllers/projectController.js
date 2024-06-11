@@ -1,44 +1,66 @@
+import express from 'express';
 import Project from '../models/Project.js';
 
+const router = express.Router();
+
 // Get all projects
-export const getAllProjects = async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const projects = await Project.find();
-    res.status(200).json(projects);
+    res.json(projects);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ error: error.message });
   }
-};
+});
 
-// Create a new project
-export const createProject = async (req, res) => {
-  const { title, tag, description, images } = req.body;
-  const project = new Project({ title, tag, description, images });
-
+// Get a project by ID
+router.get('/:id', async (req, res) => {
   try {
-    const savedProject = await project.save();
-    res.status(201).json(savedProject);
+    const project = await Project.findById(req.params.id);
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+    res.json(project);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ error: error.message });
   }
-};
+});
+
+// Add a new project
+router.post('/', async (req, res) => {
+  try {
+    const newProject = new Project(req.body);
+    await newProject.save();
+    res.status(201).json(newProject);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
 // Update a project
-export const updateProject = async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
-    const updatedProject = await Project.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.status(200).json(updatedProject);
+    const project = await Project.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+    res.json(project);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ error: error.message });
   }
-};
+});
 
 // Delete a project
-export const deleteProject = async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
-    await Project.findByIdAndDelete(req.params.id);
-    res.status(204).json({ message: 'Project deleted' });
+    const project = await Project.findByIdAndDelete(req.params.id);
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+    res.json({ message: 'Project deleted successfully' });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ error: error.message });
   }
-};
+});
+
+export default router;

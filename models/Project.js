@@ -6,7 +6,9 @@ const projectSchema = new mongoose.Schema({
   title: String,
   tag: String,
   description: String,
-  images: [String]  // Base64 encoded strings
+  maxIndex: String,
+  // images: [String]  
+  // Base64 encoded strings
 });
 
 // Pre-save hook to increment srNo
