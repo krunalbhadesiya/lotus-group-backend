@@ -1,4 +1,5 @@
 import Contact from '../models/Contact.js';
+import sendMail from '../utils/SendMail.js';
 
 // Get all contacts
 export const getAllContacts = async (req, res) => {
@@ -15,6 +16,14 @@ export const createContact = async (req, res) => {
   const { name, email, phone, message } = req.body;
   const contact = new Contact({ name, email, phone, message });
   try {
+    const emailContent = `
+      <h1>Lotus Group Contact Us Form Data</h1>
+      <p>Name: ${name}</p>
+      <p>Email: ${email}</p>
+      <p>Phone: ${phone}</p>
+      <p>Message: ${message}</p>
+    `;
+    await sendMail('krunalbhadesiya.socialmedia@gmail.com', 'Lotus Group Contact Data', emailContent);
     const savedContact = await contact.save();
     res.status(201).json(savedContact);
   } catch (error) {
