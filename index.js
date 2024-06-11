@@ -19,6 +19,7 @@ app.use(express.json({ limit: "10mb" })); // Increased limit for large JSON payl
 app.use(
   cors({
     origin: "https://lotusgroup.vercel.app", // Adjust to your frontend URL
+    origin: "http://localhost:5173/dashboard/ContactData", // Adjust to your frontend URL
     methods: ["POST", "GET", "DELETE", "PUT"],
     credentials: true,
   })
