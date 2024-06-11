@@ -18,10 +18,7 @@ app.use(express.json({ limit: "10mb" })); // Increased limit for large JSON payl
 // CORS middleware
 app.use(
   cors({
-    origin: ['https://lotusgroup.vercel.app', 'http://localhost:5173','lotus-group-dashboard.vercel.app'], // Adjust to your frontend URL
-    methods: ["POST", "GET", "DELETE", "PUT"],
-    allowedHeaders: ['Content-Type'],
-    credentials: true,
+    origin: 'https://lotusgroup.vercel.app', // Adjust to your frontend URL
   })
 );
 
