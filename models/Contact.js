@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import AutoIncrement from 'mongoose-sequence';
+import Counter from './Counter.js';
 
 const contactSchema = new mongoose.Schema({
   srNo: { type: Number, unique: true },
@@ -9,8 +9,18 @@ const contactSchema = new mongoose.Schema({
   message: String
 });
 
-// Apply the auto-increment plugin to the schema
-contactSchema.plugin(AutoIncrement, { inc_field: 'srNo' });
+// Pre-save hook to increment srNo
+contactSchema.pre('save', async function(next) {
+  if (this.isNew) {
+    const counter = await Counter.findOneAndUpdate(
+      { model: 'Contact' },
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true }
+    );
+    this.srNo = counter.seq;
+  }
+  next();
+});
 
 const Contact = mongoose.model('Contact', contactSchema);
 
