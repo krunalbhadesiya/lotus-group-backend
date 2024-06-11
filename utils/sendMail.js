@@ -9,7 +9,7 @@ const sendMail = async (to, subject, message) => {
       secure: false,
       auth: {
         user: "lotusgroup.dev@gmail.com",
-        pass: "xepc nxyk qrpn yqhl",
+        pass: process.env.PASS,
       },
     });
 
