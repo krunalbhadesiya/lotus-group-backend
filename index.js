@@ -19,6 +19,7 @@ app.use(express.json({ limit: "10mb" })); // Increased limit for large JSON payl
 app.use(
   cors({
     origin: 'https://lotusgroup.vercel.app', // Adjust to your frontend URL
+    origin: 'https://lotus-group-dashboard.vercel.app/', // Adjust to your frontend URL
   })
 );
 
@@ -32,7 +33,7 @@ app.use("/api/projects", projectsRouter);
 const mongoURI = process.env.MONGODB_URI;
 mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("MongoDB connected"))
+  .then(() => console.log("MongoDB connected📀📀📀📀📀"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Server connection
