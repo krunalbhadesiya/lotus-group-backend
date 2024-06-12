@@ -7,6 +7,7 @@ import cors from "cors";
 import home from "./routes/home.js";
 import contactsRouter from "./routes/contacts.js";
 import projectsRouter from "./routes/projects.js";
+import authRoutes from "./routes/auth.js";
 
 // Load environment variables
 dotenv.config();
@@ -34,6 +35,7 @@ app.use(
 
 // Routes
 app.use("/home", home);
+app.use('/api/auth', authRoutes);
 app.use("/api/contacts", contactsRouter);
 app.use("/api/projects", projectsRouter);
 
