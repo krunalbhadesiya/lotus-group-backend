@@ -1,5 +1,5 @@
 import Contact from '../models/Contact.js';
-import sendMail from '../utils/SendMail.js';
+import sendMail from '../utils/sendMail.js';
 
 // Get all contacts
 export const getAllContacts = async (req, res) => {
