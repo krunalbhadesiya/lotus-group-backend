@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-// import cors from "cors";
+import cors from "cors";
 
 // Import routes
 import home from "./routes/home.js";
@@ -16,11 +16,11 @@ const app = express();
 app.use(express.json({ limit: "10mb" })); // Increased limit for large JSON payloads
 
 // CORS middleware
-// app.use(
-//   cors({
-//     origin: 'https://lotusgroup.vercel.app', // Adjust to your frontend URL
-//   })
-// );
+app.use(
+  cors({
+    origin: 'https://lotusgroup.vercel.app', // Adjust to your frontend URL
+  })
+);
 
 
 // Routes
