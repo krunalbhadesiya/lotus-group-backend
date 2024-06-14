@@ -22,7 +22,8 @@ app.use(
     origin: function (origin, callback) {
       const allowedOrigins = [
         'https://lotusgroup.vercel.app',
-        'https://lotus-group-dashboard.vercel.app'
+        'https://lotus-group-dashboard.vercel.app',
+        'http://localhost:5173'
       ];
       if (!origin || allowedOrigins.indexOf(origin) !== -1) {
         callback(null, true);
