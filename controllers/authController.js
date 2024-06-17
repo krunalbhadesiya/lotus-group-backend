@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
+import sendMail from '../utils/sendMail.js';
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -37,6 +38,11 @@ export const login = async (req, res) => {
         email: user.email,
         token: generateToken(user._id)
       });
+      const emailContent = `
+      <h1>Lotus Group Login Form Data</h1>
+      <p>Login Successfully via ${email}.</p>
+    `;
+    await sendMail('krunalbhadesiya.socialmedia@gmail.com', 'Lotus Group Login Alert', emailContent);
     } else {
       res.status(401).json({ message: 'Invalid email or password' });
     }
